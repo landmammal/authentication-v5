@@ -56,6 +56,16 @@ app.post(
   })
 );
 
+// login is users
+// registering users
+app.post(
+  "/login",
+  passport.authenticate("local-login", {
+    successRedirect: "/profile",
+    failureRedirect: "/",
+  })
+);
+
 app.get("/profile", function (req, res) {
   res.render("profile.ejs");
 });
