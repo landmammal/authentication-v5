@@ -1,1 +1,7 @@
-<h1>Welcome User</h1>
+<% if(user){ %>
+    <h1>Welcome <%= user.username %></h1>
+<% }else { %>
+    <h1>Welcome User please login</h1>
+<% } %>
+
+<a href="/logout">LogOut</a>

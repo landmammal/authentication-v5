@@ -46,7 +46,7 @@ passport.use(
               return done(err);
             }
 
-            return done(null, newUser);
+            return done(null, newUser[0]);
           }
         );
       });
@@ -101,4 +101,4 @@ passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 
-module.exports = passport;
+module.exports = { passport: passport, db: db };

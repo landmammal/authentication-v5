@@ -1,9 +1,10 @@
 // Dependencies
 var express = require("express");
-var mysql = require("mysql");
-var passport = require("./config/passport");
+var passport = require("./config/passport").passport;
+
 var session = require("express-session");
 var userEncrypt = require("./config/middleware/userEncrypt");
+var isAuthenticated = require("./config/middleware/isAuthenticated");
 
 // app initialization
 var app = express();
@@ -26,18 +27,7 @@ app.use(passport.session());
 var PORT = process.env.PORT || 3000;
 
 // DATABASE Connection
-var db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "password",
-  database: "authenticationV5",
-});
-
-db.connect(function (error) {
-  if (error) throw error;
-
-  console.log("MYSQL is connected");
-});
+var db = require("./config/passport").db;
 
 // ############# ROUTES
 
@@ -66,8 +56,15 @@ app.post(
   })
 );
 
-app.get("/profile", function (req, res) {
-  res.render("profile.ejs");
+app.get("/logout", function (req, res) {
+  req.logout();
+  res.redirect("/");
+});
+
+app.get("/profile", isAuthenticated, function (req, res) {
+  console.log(req.user);
+
+  res.render("profile.ejs", { user: req.user });
 });
 
 app.listen(PORT, function () {
