@@ -1,7 +1,8 @@
 // Dependencies
 var express = require("express");
-var passport = require("./config/passport").passport;
 
+// passport pkgs
+var passport = require("./config/passport").passport;
 var session = require("express-session");
 var userEncrypt = require("./config/middleware/userEncrypt");
 var isAuthenticated = require("./config/middleware/isAuthenticated");

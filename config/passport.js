@@ -45,8 +45,14 @@ passport.use(
             if (err) {
               return done(err);
             }
+            // console.log(newUser);
 
-            return done(null, newUser[0]);
+            return done(null, {
+              id: newUser.insertId,
+              username: req.body.username,
+              email: email,
+              password: password,
+            });
           }
         );
       });
